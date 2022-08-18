@@ -1,41 +1,44 @@
-package com.example.mypost
 
-import android.content.Context
+package com.example.Post
+
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.Post.databinding.PostListXmlBinding
+import com.example.mypost.Post
+import com.example.mypost.CommentActivity
 
-class PostAdapter(var context: Context, var postList: List<Post>
-) : RecyclerView.Adapter<RetrofitViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RetrofitViewHolder {
-        var bindingView =
-            RetrofitListPostsBinding.inflate(LayoutInflater.from(context), parent, false)
-        return RetrofitViewHolder(bindingView)
+class RetrofitAdapter(var postList: List<Post>) :
+    RecyclerView.Adapter<PostViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
+        var binding = PostListXmlBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return PostViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: RetrofitViewHolder, position: Int) {
-        var currentItem = postList.get(position)
-//        val context = holder.itemView.context
-
-        with(holder.bindingView) {
-            tvUsername.text = currentItem.id.toString()
-            userId.text = currentItem.userId.toString()
-            tvTittle.text = currentItem.title
-            tvBody.text = currentItem.body
+    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
+        val context = holder.itemView.context
+        var currentPost = postList.get(position)
+        holder.binding.tvAbout.text = currentPost.title
+        with(holder.binding) {
+            tvAbout.text = currentPost.userId.toString()
+            userId.text = currentPost.id.toString()
+            idNo.text = currentPost.title
+            val intent = Intent(context, CommentActivity::class.java)
+            intent.putExtra("POST_ID", currentPost.id)
+            context.startActivity(intent)
         }
-
     }
 
     override fun getItemCount(): Int {
         return postList.size
     }
-}
-
-class RetrofitViewHolder(var bindingView: RetrofitListPostBinding) :
-    RecyclerView.ViewHolder(bindingView.root) {
 
 }
 
+class PostViewHolder(var binding: PostListXmlBinding) :
+    RecyclerView.ViewHolder(binding.root)
 
 
 

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.mypost">
-    <uses-permission android:name="android.permission.INTERNET">
+    package="com.example.Post">
 
-    </uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -17,7 +16,10 @@
         android:theme="@style/Theme.MyPost"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.mypost.CommentActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.mypost.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
